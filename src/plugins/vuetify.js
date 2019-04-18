@@ -1,17 +1,10 @@
-import Vue from 'vue'
-import Vuetify, {
-  VApp,
-  VToolbar,
-  VSpacer
-} from 'vuetify/lib'
-import 'vuetify/src/stylus/app.styl'
+import Vue from "vue";
+import Vuetify from "vuetify/lib";
+import "../assets/style/overrides.styl";
 
 Vue.use(Vuetify, {
-  options: {
-    customProperties: true
+  theme: {
+    primary: "#1a56bd"
   },
-  components: {
-    VApp, VToolbar, VSpacer
-  },
-  iconfont: 'fa',
-})
+  iconfont: "fa"
+});

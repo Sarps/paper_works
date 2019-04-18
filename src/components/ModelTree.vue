@@ -1,103 +1,65 @@
 <template>
-  <v-navigation-drawer stateless value="true" dark class="primary darken-1">
-    <template>
-      <v-treeview
-        v-model="tree"
-        :open="open"
-        :items="items"
-        activatable
-        open-on-click
-        expand-icon="fas fa-1x fa-arrow-circle-down"
-        hoverable
-        item-key="name"
-      >
-        <template v-slot:prepend="{ item, open }">
-          <v-icon v-if="!item.file">{{ open ? 'fal fa-folder-open' : 'fal fa-folder' }}</v-icon>
-          <v-icon v-else>{{ files[item.file] }}</v-icon>
-        </template>
-      </v-treeview>
-    </template>
-  </v-navigation-drawer>
-</template>
+  <v-navigation-drawer stateless value="true" dark class="primary darken-1" app clipped>
+    <v-sheet class="pa-0 primary lighten-1">
+      <v-text-field
+        v-model="search"
+        label="Search Tree"
+        dark
+        flat
+        solo-inverted
+        hide-details
+        clearable
+        clear-icon="far fa-1x fa-times-circle"
+      ></v-text-field>
+    </v-sheet>
+    <v-treeview
+      v-model="tree"
+      :items="items"
+      activatable
+      expand-icon="fas fa-1x fa-arrow-circle-down"
+      hoverable
+      item-key="name"
+      :active="active"
+    >
+      <template v-slot:prepend="{ item, open }">
+        <v-icon v-if="!item.file">
+          {{ open ? "fal fa-folder-open" : "fal fa-folder" }}
+        </v-icon>
+        <v-icon v-else>far fa-home</v-icon>
+      </template>
+      <template v-slot:append="{ active }">
+        <v-btn icon color="primary" :disabled="!active" class="pa-0 ma-0">
+          <v-icon>fas fa-1x fa-tint</v-icon>
+        </v-btn>
+        <v-btn icon color="primary" :disabled="!active" class="pa-0 ma-0">
+          <v-icon>far fa-1x fa-eye</v-icon>
+        </v-btn>
+      </template>
+    </v-treeview>
   </v-navigation-drawer>
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
 export default {
   data: () => ({
-    admins: [["Management", "people_outline"], ["Settings", "settings"]],
-    cruds: [
-      ["Create", "arrows-alt"],
-      ["Read", "abacus"],
-      ["Update", "anchor"],
-      ["Delete", "delete"]
-    ],
-    open: ["public"],
-    files: {
-      html: "mdi-language-html5",
-      js: "mdi-nodejs",
-      json: "mdi-json",
-      md: "mdi-markdown",
-      pdf: "mdi-file-pdf",
-      png: "mdi-file-image",
-      txt: "mdi-file-document-outline",
-      xls: "mdi-file-excel"
-    },
     tree: [],
-    items: [
-      {
-        name: ".git"
-      },
-      {
-        name: "node_modules"
-      },
-      {
-        name: "public",
-        children: [
-          {
-            name: "static",
-            children: [
-              {
-                name: "logo.png",
-                file: "png"
-              }
-            ]
-          },
-          {
-            name: "favicon.ico",
-            file: "png"
-          },
-          {
-            name: "index.html",
-            file: "html"
-          }
-        ]
-      },
-      {
-        name: ".gitignore",
-        file: "txt"
-      },
-      {
-        name: "babel.config.js",
-        file: "js"
-      },
-      {
-        name: "package.json",
-        file: "json"
-      },
-      {
-        name: "README.md",
-        file: "md"
-      },
-      {
-        name: "vue.config.js",
-        file: "js"
-      },
-      {
-        name: "yarn.lock",
-        file: "txt"
-      }
-    ]
-  })
+    active: [],
+    search: ""
+  }),
+
+  computed: {
+    items() {
+      return this.$store.state.MODELTREE;
+    }
+  },
+
+  methods: {
+    itemSelected() {
+
+    }
+  }
+  
 };
 </script>

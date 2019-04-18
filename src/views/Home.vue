@@ -1,25 +1,18 @@
 <template>
-  <div class="fill-height">
-    <v-tabs v-model="value" color="primary" dark slider-color="white">
-      <v-tab-item v-for="n in 3" :key="n">
-        <Toolbar/>
-      </v-tab-item>
-      <v-tab ripple v-for="n in 3" :key="n">tabText</v-tab>
-    </v-tabs>
-    <ModelTree />
-  </div>
+  <v-container fill-height fluid class="pa-0">
+    <FloatingPreviewer />
+    <v-layout row wrap fill-height>
+      <div class="flex red darken-3 xs12 fill-height"  tabindex="-1" id="screen"></div>
+    </v-layout>
+  </v-container>
 </template>
 
 <script>
-import HelloWorld from "../components/HelloWorld";
-import Toolbar from "../components/Toolbar";
-import ModelTree from "../components/ModelTree";
+import FloatingPreviewer from "../components/FloatingPreviewer";
 
 export default {
   components: {
-    HelloWorld,
-    Toolbar,
-    ModelTree
+    FloatingPreviewer
   }
 };
 </script>
